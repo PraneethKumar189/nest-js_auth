@@ -1,8 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { AuthDTO } from './dto';
 
 @Injectable()
 export class AuthService {
-    signupLocal(){}
+
+    constructor(private prisma:PrismaService){}
+
+    signupLocal(dto:AuthDTO){
+  
+    }
 
     signinLocal(){}
 
