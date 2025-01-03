@@ -15,7 +15,12 @@ export class AuthService {
     }
 
    async getTokens(userId:number,email:string){
-    const accessToken =
+    const accessToken = this.jwtservice.signAsync({
+        sub:userId,
+        email,
+    },{expiresIn:60*15,
+        
+    })
 
     }
 
