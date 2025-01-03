@@ -14,5 +14,14 @@ datasource db {
 }
 
 model User{
-  id int @
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String
+  hash String
+  hashedRt String?
+
+  @@map("users")
 }
+
