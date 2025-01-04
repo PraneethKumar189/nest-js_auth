@@ -15,12 +15,29 @@ export class AuthService {
     }
 
    async getTokens(userId:number,email:string){
-    const accessToken = this.jwtservice.signAsync({
-        sub:userId,
-        email,
-    },{expiresIn:60*15,
-        
-    })
+    const [at,rt]= await Promise.all([
+        this.jwtservice.signAsync({
+            sub:userId,
+            email,
+        },{
+            secret:'rt-secret',
+            expiresIn:60*60*24*7,
+            
+        }),
+        this.jwtservice.signAsync({
+            sub:userId,
+            email,
+        },{expiresIn:60*15,
+            
+        })
+
+    ]);
+
+    return {
+        access_token:at,
+        refresh_token:rt
+    }
+
 
     }
 
@@ -32,6 +49,10 @@ export class AuthService {
                 hash
             }
         })
+
+        const tokens = await this.getTokens((await newUser).id,(await newUser).email)
+
+        return  tokens;
   
     }
 
