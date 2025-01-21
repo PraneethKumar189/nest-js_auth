@@ -56,6 +56,18 @@ export class AuthService {
   
     }
 
+    async updateHash(userId:number,rt:string){
+        const hash= await this.hashData(rt);
+       await this.prisma.user.update({
+        where:{
+            id:userId
+        },
+        data:{
+            hashedRt:hash
+        }
+       })
+    }
+
     signinLocal(){}
 
     logout(){}
